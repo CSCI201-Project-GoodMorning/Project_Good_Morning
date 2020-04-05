@@ -151,3 +151,11 @@ body{
     border-top: solid rgba(77, 88, 112,0.5);
     border-bottom: solid rgba(77, 88, 112,0.5);;
 }
+.addBorderRL{
+    border-right: solid rgba(77, 88, 112,0.5);
+    border-left: solid rgba(77, 88, 112,0.5);;
+}
+
+.bg-orange{
+    background-color: rgba(255, 223, 184, 0.5);
+}
