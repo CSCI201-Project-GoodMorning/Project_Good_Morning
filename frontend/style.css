@@ -82,6 +82,10 @@ body{
     width: 100%;
     height: 25%;
 }
+.space-sm{
+    width: 100%;
+    height: 10%;
+}
 .btn-color{
     background-color: #4D5870;
     opacity: 50%;
