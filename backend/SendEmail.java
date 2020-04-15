@@ -8,14 +8,19 @@ import javax.activation.*;
 public class SendEmail  
 { 
   
-	private static Message prepareMessage(Session session, String sender, String recipient) {
+	private static Message prepareMessage(Session session, String sender, EmailContents toSend) {
 		
 		try {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(sender));
-			message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient) );
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(toSend.getEmailAddress()) );
 			message.setSubject("Good Morning!:)");
-			message.setText("This will be a quote!");
+			
+			//need to get quote
+			message.setText(toSend.getQuote());
+			
+			//need to attach image as well to email
+			
 			return message;
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
@@ -27,7 +32,7 @@ public class SendEmail
 		return null;
 	} 
 	
-   public static void SendEmail(String recipient) throws MessagingException  
+   public static void SendEmail(EmailContents toSend) throws MessagingException  
    {     
   
       // email ID of goodmorning. 
@@ -48,7 +53,7 @@ public class SendEmail
     	  }
       }); 
      
-      Message message = prepareMessage(session, sender, recipient);
+      Message message = prepareMessage(session, sender, toSend);
       Transport.send(message);
       System.out.println("Message sent Successfully");
    }
