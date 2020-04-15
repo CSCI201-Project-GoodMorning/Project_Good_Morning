@@ -1,4 +1,3 @@
-DROP DATABASE if exists gmData;
 CREATE DATABASE gmData;
 USE gmData;
 CREATE TABLE users (
@@ -8,25 +7,26 @@ CREATE TABLE users (
     fullName varchar(28) not null,
     registeredUser bool not null,
     email varchar(50) not null,
-    emailPrefDaily bool DEFAULT 0,
-    prefAnimal bool DEFAULT 0,
-    prefFood bool DEFAULT 0,
-    prefSky bool DEFAULT 0,
-    prefWater bool DEFAULT 0,
-    prefArchitecture bool DEFAULT 0,
-    prefFlower bool DEFAULT 0,
-    prefMuseum bool DEFAULT 0,
-    prefArt bool DEFAULT 0,
-    prefMountains bool DEFAULT 0,
-    prefSoccer bool DEFAULT 0,
-    prefDance bool DEFAULT 0,
-    prefSinging bool DEFAULT 0,
-    prefPolitics bool DEFAULT 0,
-    prefLiterature bool DEFAULT 0,
-    prefFashion bool DEFAULT 0,
-    prefVolunteer bool DEFAULT 0,
-    prefTravel bool DEFAULT 0,
-    prefCooking bool DEFAULT 0
+    emailPrefDaily bool not null,
+    emailTimePreference varchar(500),
+    prefAnimal bool not null,
+    prefFood bool not null,
+    prefSky bool not null,
+    prefWater bool not null,
+    prefArchitecture bool not null,
+    prefFlower bool not null,
+    prefMuseum bool not null,
+    prefArt bool not null,
+    prefMountains bool not null,
+    prefSoccer bool not null,
+    prefDance bool not null,
+    prefSinging bool not null,
+    prefPolitics bool not null,
+    prefLiterature bool not null,
+    prefFashion bool not null,
+    prefVolunteer bool not null,
+    prefTravel bool not null,
+    prefCooking bool not null
 );
 CREATE TABLE pictures (
 	picID int primary key not null auto_increment,
@@ -54,12 +54,4 @@ CREATE TABLE moodBoard (
     FOREIGN KEY fk7(picID7) REFERENCES pictures(picID),
     FOREIGN KEY fk8(picID8) REFERENCES pictures(picID),
     FOREIGN KEY fk9(picID9) REFERENCES pictures(picID)
-);
-CREATE TABLE emails (
-	emailID int primary key not null auto_increment,
-    userID int,
-    goodMorningMessage varchar(500) not null,
-    emailTimePreference varchar(500) not null,
-    photoURL varchar(2083) not null,
-    FOREIGN KEY fk1(userID) REFERENCES users(userID)
 );
