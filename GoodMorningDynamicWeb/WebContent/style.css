@@ -65,6 +65,7 @@ body{
 }
 .input-bg{
     background-color: #4D5870;
+    color: aliceblue;
     opacity: 0.5;
 }
 .set-width-30{
@@ -166,3 +167,4 @@ body{
 .selected{
     background-color: rgba(47, 106, 134,0.5) ;
   }
+

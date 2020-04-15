@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
 <html>
     <head>
         
@@ -20,16 +23,20 @@
     </style>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-orange">
-            <a class="navbar-brand title" href="./about.html" >CSCI-201 Project: Good Morning</a>
+            <a class="navbar-brand title" href="./About.jsp" >CSCI-201 Project: Good Morning</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav title">
-                        <a class="nav-item nav-link active" href="./about.html">About us<span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="./moodboard.html">Moodboard</a>
-                        <a class="nav-item nav-link" href="./login.html">Login</a>
-                        <a class="nav-item nav-link" href="./signup.html">Signup</a>
+                        <a class="nav-item nav-link active" href="./About.jsp">About us<span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link" href="./MoodBoard.jsp">Moodboard</a>
+                        <% if (session.getAttribute("userid") == null){ %>
+	                        <a class="nav-item nav-link" href="./Login.jsp">Login</a>
+	                        <a class="nav-item nav-link" href="./SignUp.jsp">Signup</a>
+	                     <%} else{ %>
+	                    	 <a class="nav-item nav-link" href="./logout.jsp">Logout</a>
+	                    <%  } %>
                         
                         
                 </div>
@@ -59,7 +66,8 @@
            
         </div>
         <div class="space-sm"></div>
-        <a href="moodboard.html" class="btn btn-info center set-width-30" role="button">Click to view sample moodboard</a>
+        
+        <a href="MoodBoard.jsp" class="btn btn-info center set-width-30" role="button"><%= (session.getAttribute("userid") == null)?("Click to view sample MoodBoard"):("Back to your personalized MoodBoard")%></a>
     </body>
     
 </html>
