@@ -113,7 +113,7 @@ public class getContent {
 			  //get all users who wish to be emailed daily
 			  rs = st.executeQuery("SELECT * FROM USERS WHERE emailPrefDaily='" + 1 + "'");
 			  while(rs.next()) {
-				  EmailContents email = new EmailContents(null, null, "needs quote", null);
+				  EmailContents email = new EmailContents(null, null, "There Will Come a Day this is a quote", null);
 				  
 				  //get and set email address for current user
 				  String emailAddress = rs.getString("email");
@@ -125,7 +125,6 @@ public class getContent {
 				  
 				  //select a randomized preference
 				  String preference = getPreference(rs);
-				  
 				  
 				  //then using preference query a photo for each user that matches said preference
 				  String photoURL = getPhoto(preference);
