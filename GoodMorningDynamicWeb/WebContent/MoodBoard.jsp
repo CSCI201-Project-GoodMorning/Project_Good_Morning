@@ -24,6 +24,7 @@
 
 	ArrayList<String> picURLs = (ArrayList<String>)session.getAttribute("sixPicURLs");
 	ArrayList<String> interests_for_api	= (ArrayList<String>)session.getAttribute("interests");
+	
 	boolean login = false;
 	if (session.getAttribute("userid")!=null) login = true;
 %>
@@ -61,7 +62,7 @@
 	                        <a class="nav-item nav-link" href="./Login.jsp">Login</a>
 	                        <a class="nav-item nav-link" href="./SignUp.jsp">Signup</a>
 	                     <%} else{ %>
-	                    	 <a class="nav-item nav-link" href="logout.jsp">Logout</a>
+	                    	 <a class="nav-item nav-link" href="./Logout.jsp">Logout</a>
 	                    <%  } %>
                         
                         
@@ -171,10 +172,10 @@
     </body>
     <script>
     	<%if (login){%>
-	     displayPhoto(); 
+	      displayPhoto();  
 
 	    
-	    function displayPhoto(){
+	  function displayPhoto(){
 	        $.ajax({
 	            method:"GET",
 	            url:"https://api.unsplash.com/search/photos?orientation=squarish&query="+"<%=interests_for_api.get(0) %>"+"&client_id=9oq6Z9FdubF6e10dKETpZumlrGsuAtd0ov1bI7gUORA",
@@ -189,7 +190,7 @@
 	            console.log("ERROR");
 	        });
 	        
-	    }
+	    } 
 	    <%}%>
     
     </script>

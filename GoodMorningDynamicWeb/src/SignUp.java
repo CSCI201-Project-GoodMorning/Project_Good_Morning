@@ -119,8 +119,8 @@ public class SignUp extends HttpServlet {
 			try {
 			
 				
-				
-				String sql = "insert into users (username, fullName, registeredUser, email, passcode) values('" + username + "', '" + name + "', '" + registereduser + "', '" + email + "', '" + password + "')";
+//				todo: email preference??
+				String sql = "insert into users (username, fullName, registeredUser, email, emailPrefDaily, passcode) values('" + username + "', '" + name + "', '" + registereduser + "', '" + email + "', true, '" + password + "')";
 //	            System.out.println(sql);
 	           
 //				st = conn.createStatement();

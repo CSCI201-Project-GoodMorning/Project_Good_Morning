@@ -84,7 +84,7 @@ public class Quiz extends HttpServlet {
 			error += "No images selected.";
 			next = "/Quiz.jsp";
 		}
-		if (time.equals("")) {
+		if (time==null || time.equals("")) {
 			error += "No time selected.";
 			next = "/Quiz.jsp";
 		}
@@ -195,6 +195,13 @@ public class Quiz extends HttpServlet {
 				ps.executeUpdate();
 				//insert into emails table
 				
+				
+				
+				
+				
+				
+				
+				
 //				bug here!, todo: photo url and goodmorning message, change following later
 				String photoURL = "photo";
 				String goodMorningMessage = "Good Morning";
@@ -206,8 +213,7 @@ public class Quiz extends HttpServlet {
 			
 				
 				
-				sql = "insert into emails (userID, emailTimePreference, photoURL, goodMorningMessage) "
-						+ "values( " +id+",'"  +time +"', '"+ photoURL+"', '"+ goodMorningMessage+"');";
+				sql = "UPDATE users SET emailTimePreference = '"+time+"' WHERE username = '"+username+"'";
 				System.out.println(sql);
 				
 				ps = connection.prepareStatement(sql);
@@ -220,8 +226,7 @@ public class Quiz extends HttpServlet {
 				ArrayList<String> picURLs = m.moodBoardURLS(id);
 				ArrayList<String> interests_for_api = m.randomInterests(id);
 				session.setAttribute("sixPicURLs", picURLs);
-				session.setAttribute("threeInterests", interests_for_api);
-				System.out.println("interests: !!!!!!");
+				session.setAttribute("interests", interests_for_api);
 				for (String i:interests_for_api) {
 					System.out.println(i);
 				}

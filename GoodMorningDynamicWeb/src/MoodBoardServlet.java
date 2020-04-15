@@ -32,7 +32,7 @@ public class MoodBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		not created yet
 		HttpSession session = request.getSession();
-		if (session.getAttribute("sixPicURLs") == null || session.getAttribute("threeInterests") == null) {
+		if (session.getAttribute("sixPicURLs") == null || session.getAttribute("interests") == null) {
 			int id = (int)session.getAttribute("userid");
 			MoodBoardCreation m = new MoodBoardCreation();
 			ArrayList<String> picURLs = m.moodBoardURLS(id);

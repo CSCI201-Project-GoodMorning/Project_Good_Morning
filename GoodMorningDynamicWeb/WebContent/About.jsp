@@ -35,7 +35,7 @@
 	                        <a class="nav-item nav-link" href="./Login.jsp">Login</a>
 	                        <a class="nav-item nav-link" href="./SignUp.jsp">Signup</a>
 	                     <%} else{ %>
-	                    	 <a class="nav-item nav-link" href="./logout.jsp">Logout</a>
+	                    	 <a class="nav-item nav-link" href="./Logout.jsp">Logout</a>
 	                    <%  } %>
                         
                         

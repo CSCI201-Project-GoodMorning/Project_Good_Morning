@@ -98,8 +98,8 @@ public class Login extends HttpServlet {
 					e.printStackTrace();
 				} 
 		   }
-			int test = (int)session.getAttribute("userid");
-			System.out.println(test);
+//			int test = (int)session.getAttribute("userid");
+//			System.out.println(test);
 			
 //			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/MoodBoardServlet.java");
 			 RequestDispatcher rd=request.getRequestDispatcher("MoodBoardServlet");  
