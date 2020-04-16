@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import mail.getContent;
+import mail.getContentDaily;
 
 
 public class Mail {
@@ -14,7 +14,7 @@ public class Mail {
 	public static void main(String[] args) throws MessagingException, SQLException, IOException {
 
 	  //create arraylist that will hold contents of each email to be sent
-	  ArrayList<EmailContents> emails = getContent.getEmailContent();	
+	  ArrayList<EmailContents> emails = getContentDaily.getEmailContent();	
 	   
 	  //send emails
       for(int i = 0; i<emails.size(); i++) {
