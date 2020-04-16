@@ -28,27 +28,8 @@
 	boolean login = false;
 	if (session.getAttribute("userid")!=null) login = true;
 %>
-    </style>
-    		<script>
-			var socket;
-			function connectToServer() {
-				socket = new WebSocket("ws://localhost:8080/CSCI201finalprojectelaine/ws");
-				socket.onopen = function(event) {
-					console.log("connected");
-				}
-				socket.onmessage = function(event) {
-					/* document.getElementById("mychat").innerHTML += event.data + "<br />"; */
-				}
-				socket.onclose = function(event) {
-					/* document.getElementById("mychat").innerHTML += "Disconnected!"; */
-				}
-			}
-			function sendMessage() {
-				/* socket.send("Miller: " + document.chatform.message.value); */
-				return false;
-			}
-		</script>
-    <body onload="connectToServer()">
+    </style> 
+    <body <%if(login){ %> onload="connectToServer()" onclick="removeAll()" <%} %>>
         <nav class="navbar navbar-expand-lg navbar-light bg-orange">
             <a class="navbar-brand title" href="./About.jsp" >CSCI-201 Project: Good Morning</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,9 +74,7 @@
 		</form>
 		<br />
 		<div id="mychat"></div> -->
-
-
-
+		
         <div class="container">
         	
             <div class="row">
@@ -168,6 +147,10 @@
         
     
         <%if (session.getAttribute("userid")== null) {%><a href="SignUp.jsp" class="btn btn-info center set-width-30" role="button">Sign up as a member now</a>
+        <%}else{ %>
+        <form action="MoodBoardServlet" Method="GET">
+        	<button class="btn btn-info center set-width-30" role="submit">Send a personalized Good Morning email</button>
+        </form>
         <%} %>
     </body>
     <script>
@@ -191,6 +174,67 @@
 	        });
 	        
 	    } 
+	  var socket;
+		function connectToServer() {
+			socket = new WebSocket("ws://localhost:8080/CSCI201finalprojectelaine/ws");
+			socket.onopen = function(event) {
+				console.log("connected");
+			}
+			socket.onmessage = function(event) {
+				/* document.getElementById("mychat").innerHTML += event.data + "<br />"; */
+			/* 	alert(event.data); */
+				randomPopup(event.data);
+			}
+			socket.onclose = function(event) {
+				/* document.getElementById("mychat").innerHTML += "Disconnected!"; */
+			}
+		}
+		function sendMessage() {
+			/* socket.send("Miller: " + document.chatform.message.value); */
+			return false;
+		}
+		function randomPopup(text){
+		    var popup = document.createElement("div");
+		    popup.innerHTML = text;
+		    popup.classList.add("popup");
+		    popup.style.top = getRandom(0,window.innerHeight-50) + "px";
+		    popup.style.backgroundColor = "rgba(255, 150, 21, 0.5)";
+		    popup.style.borderRadius = "25px";
+		/*     popup.style.height = "20px"; */
+		    popup.style.height = "auto";
+		    popup.style.width = "15%";
+		    popup.style.position = "fixed";
+		    
+		    if (getRandomBool()){
+		    	popup.style.left = 0;
+		    }
+		    else{
+		    	popup.style.right = 0;
+		    }
+		    var pos = document.querySelector("body");
+		    pos.appendChild(popup);
+		    
+		}
+		function getRandom (n,m) {
+		    var num = Math.floor(Math.random()*(m-n)+n+1);
+		    return num;
+		}
+		function getRandomBool(){
+			if (Math.round(Math.random()) ==1){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		function removeAll(){
+			var popups = document.querySelectorAll(".popup");
+			for (let i = 0; i < popups.length;i++){
+				popups[i].remove();
+          }
+		}
+
+		
 	    <%}%>
     
     </script>
