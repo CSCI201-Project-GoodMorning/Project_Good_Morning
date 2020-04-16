@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import config.Constants;
+
 /**
  * Servlet implementation class Quiz
  */
@@ -25,7 +28,7 @@ import javax.servlet.http.HttpSession;
 public class Quiz extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//connecting to database: change for your database
-	public static final String CREDENTIALS_STRING = "jdbc:mysql://localhost:3306/gmData?user=root&password=root";
+//	public static final String CREDENTIALS_STRING = "jdbc:mysql://localhost:3306/gmData?user=root&password=root";
 	static Connection connection = null;   
     /**
      * @see HttpServlet#HttpServlet()
@@ -81,7 +84,7 @@ public class Quiz extends HttpServlet {
 			error += "No images selected.";
 			next = "/Quiz.jsp";
 		}
-		if (time.equals("")) {
+		if (time==null || time.equals("")) {
 			error += "No time selected.";
 			next = "/Quiz.jsp";
 		}
@@ -95,7 +98,7 @@ public class Quiz extends HttpServlet {
 			  
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				connection = DriverManager.getConnection(CREDENTIALS_STRING);
+				connection = DriverManager.getConnection(Constants.CREDENTIALS_STRING);
 				String sql = null;
 				if(joySet.contains("animals")){
 					sql = "UPDATE users SET prefAnimal = 1 WHERE username = '" + username + "'";
@@ -191,9 +194,42 @@ public class Quiz extends HttpServlet {
 				ps = connection.prepareStatement(sql);
 				ps.executeUpdate();
 				//insert into emails table
-				sql = "insert into emails (userID, emailTimePreference) values('" + id + "', '" + time + "')";
+				
+				
+				
+				
+				
+				
+				
+				
+//				bug here!, todo: photo url and goodmorning message, change following later
+				String photoURL = "photo";
+				String goodMorningMessage = "Good Morning";
+				
+				
+				
+				
+				
+			
+				
+				
+				sql = "UPDATE users SET emailTimePreference = '"+time+"' WHERE username = '"+username+"'";
+				System.out.println(sql);
+				
 				ps = connection.prepareStatement(sql);
 				ps.executeUpdate();
+				
+				
+				
+//				create moodboard
+				MoodBoardCreation m = new MoodBoardCreation();
+				ArrayList<String> picURLs = m.moodBoardURLS(id);
+				ArrayList<String> interests_for_api = m.randomInterests(id);
+				session.setAttribute("sixPicURLs", picURLs);
+				session.setAttribute("interests", interests_for_api);
+				for (String i:interests_for_api) {
+					System.out.println(i);
+				}
 		    }
 			catch (SQLException | ClassNotFoundException e) {
 		    	e.printStackTrace();

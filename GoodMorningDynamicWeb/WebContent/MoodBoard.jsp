@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="ISO-8859-1"
+ %>
+ <%@page import="java.util.ArrayList" %>
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
 <html>
     <head>
-        
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <link rel = "stylesheet" type = "text/css" href = "style.css"/>
@@ -19,20 +20,50 @@
             background-color: #ffebee;
             /* font-family: body; */
         }
+<%
 
+	ArrayList<String> picURLs = (ArrayList<String>)session.getAttribute("sixPicURLs");
+	ArrayList<String> interests_for_api	= (ArrayList<String>)session.getAttribute("interests");
+	
+	boolean login = false;
+	if (session.getAttribute("userid")!=null) login = true;
+%>
     </style>
-    <body>
+    		<script>
+			var socket;
+			function connectToServer() {
+				socket = new WebSocket("ws://localhost:8080/CSCI201finalprojectelaine/ws");
+				socket.onopen = function(event) {
+					console.log("connected");
+				}
+				socket.onmessage = function(event) {
+					/* document.getElementById("mychat").innerHTML += event.data + "<br />"; */
+				}
+				socket.onclose = function(event) {
+					/* document.getElementById("mychat").innerHTML += "Disconnected!"; */
+				}
+			}
+			function sendMessage() {
+				/* socket.send("Miller: " + document.chatform.message.value); */
+				return false;
+			}
+		</script>
+    <body onload="connectToServer()">
         <nav class="navbar navbar-expand-lg navbar-light bg-orange">
-            <a class="navbar-brand title" href="./about.html" >CSCI-201 Project: Good Morning</a>
+            <a class="navbar-brand title" href="./About.jsp" >CSCI-201 Project: Good Morning</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav title">
-                        <a class="nav-item nav-link active" href="./about.html">About us<span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="./moodboard.html">Moodboard</a>
-                        <a class="nav-item nav-link" href="./login.html">Login</a>
-                        <a class="nav-item nav-link" href="./signup.html">Signup</a>
+                        <a class="nav-item nav-link" href="./About.jsp">About us<span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link active" href="./MoodBoard.jsp">Moodboard</a>
+                        <% if (!login){ %>
+	                        <a class="nav-item nav-link" href="./Login.jsp">Login</a>
+	                        <a class="nav-item nav-link" href="./SignUp.jsp">Signup</a>
+	                     <%} else{ %>
+	                    	 <a class="nav-item nav-link" href="./Logout.jsp">Logout</a>
+	                    <%  } %>
                         
                         
                 </div>
@@ -54,38 +85,80 @@
             </div>
         </div>
 
+<!-- test -->
+<!-- 
+<form name="chatform" onsubmit="return sendMessage();">
+			<input type="text" name="message" value="Type Here!" /><br />
+			<input type="submit" name="submit" value="Send Message" />
+		</form>
+		<br />
+		<div id="mychat"></div> -->
+
+
+
         <div class="container">
+        	
             <div class="row">
               <div class="col-4">
-                One of three columns
+              	<%if (!login){ %>
+              	
+              		<img class='img-fluid' src='https://picsum.photos/300/300?random=1'>
+              	<%}else {%>
+                	<img class="img-fluid" src="<%=picURLs.get(0) %>">
+                <%} %>
               </div>
               <div class="col-4 addBorderRL">
-                One of three columns
+                <%if (!login){ %>
+              	
+              		<img class='img-fluid' src='https://picsum.photos/300/300?random=2'>
+              	<%}else {%>
+                	<img class="img-fluid" src="<%=picURLs.get(1) %>">
+                <%} %>
               </div>
               <div class="col-4">
-                One of three columns
+                <%if (!login){ %>
+              	
+              		<img class='img-fluid' src='https://picsum.photos/300/300?random=3'>
+              	<%}else {%>
+                	<img class="img-fluid" src="<%=picURLs.get(2) %>">
+                <%} %>
               </div>
             </div>
             <div class="row">
                 <div class="col-4 addBorderTB">
-                  One of three columns
+                  <%if (!login){ %>
+              	
+              		<img class='img-fluid' src='https://picsum.photos/300/300?random=4'>
+              	<%}else {%>
+                	<img class="img-fluid" src="<%=picURLs.get(3) %>">
+                <%} %>
                 </div>
                 <div class="col-4 addBorderTB addBorderRL">
-                  One of three columns
+                  <%if (!login){ %>
+              	
+              		<img class='img-fluid' src='https://picsum.photos/300/300?random=5'>
+              	<%}else {%>
+                	<img class="img-fluid" src="<%=picURLs.get(4) %>">
+                <%} %>
                 </div>
                 <div class="col-4 addBorderTB">
-                  One of three columns
+                  <%if (!login){ %>
+              	
+              		<img class='img-fluid' src='https://picsum.photos/300/300?random=6'>
+              	<%}else {%>
+                	<img class="img-fluid" src="<%=picURLs.get(5) %>">
+                <%} %>
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
-                  One of three columns
+                <div id = "api-photo-1" class="col-4">
+                  <%if (!login){ %><img class='img-fluid' src='https://picsum.photos/300/300?random=7'><%} %>
                 </div>
-                <div class="col-4 addBorderRL">
-                  One of three columns
+                <div id = "api-photo-2" class="col-4 addBorderRL">
+              		 <%if (!login){ %><img class='img-fluid' src='https://picsum.photos/300/300?random=8'><%} %>
                 </div>
-                <div class="col-4">
-                  One of three columns
+                <div id = "api-photo-3" class="col-4">
+                 	<%if (!login){ %><img class='img-fluid' src='https://picsum.photos/300/300?random=9'><%} %>
                 </div>
               </div>
           </div>
@@ -94,7 +167,31 @@
      
         
     
-        <a href="signup.html" class="btn btn-info center set-width-30" role="button">Sign up as a member now</a>
+        <%if (session.getAttribute("userid")== null) {%><a href="SignUp.jsp" class="btn btn-info center set-width-30" role="button">Sign up as a member now</a>
+        <%} %>
     </body>
+    <script>
+    	<%if (login){%>
+	      displayPhoto();  
+
+	    
+	  function displayPhoto(){
+	        $.ajax({
+	            method:"GET",
+	            url:"https://api.unsplash.com/search/photos?orientation=squarish&query="+"<%=interests_for_api.get(0) %>"+"&client_id=9oq6Z9FdubF6e10dKETpZumlrGsuAtd0ov1bI7gUORA",
+	        })
+	        .done(function(response){
+	        	console.log(response.results[0].urls.regular);
+		        $("#api-photo-1").append("<img class= 'img-fluid' src="+response.results[0].urls.full+"/>");
+	            $("#api-photo-2").append("<img class='img-fluid' src="+response.results[1].urls.full+"/>");
+	            $("#api-photo-3").append("<img class='img-fluid' src="+response.results[2].urls.full+"/>");
+	        })
+	        .fail(function(){
+	            console.log("ERROR");
+	        });
+	        
+	    } 
+	    <%}%>
     
+    </script>
 </html>

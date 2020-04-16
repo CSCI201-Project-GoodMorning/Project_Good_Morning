@@ -1,42 +1,53 @@
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArraySet;
 
+import javax.servlet.http.HttpSession;
+import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+
 
 @ServerEndpoint(value = "/ws")
 public class ServerSocket {
 
-	//Declare a HashSet for storing the list of devices 
-	//added to the application and the active sessions in the application, and import their packages.
-	private static Vector<Session> sessionVector = new Vector<Session>();
+	private static Vector<HttpSession> sessionVector = new Vector<HttpSession>();
 	
 	@OnOpen
-	public void open(Session session) {
+	public void open(HttpSession session) throws IOException {
 		System.out.println("Connection made!");
+
+		
+		//create instance of a quote for every instance of a web socket (ie a user)
+		//pass session into quote constructor
+		//call API in the constructor of the quote to get the list of 5 quotes
+		Quote q = new Quote(session);
+
 		sessionVector.add(session);
+
+		for(int i=1;i<6;i++) {
+			((Session) session).getBasicRemote().sendText((String) session.getAttribute("quote"+i));
+		}
+
 	}
 	
 	@OnMessage
-	public void onMessage(String message, Session session) {
+	public void onMessage(String message, HttpSession session) {
 		System.out.println(message);
-		try {
-			//sendToAllConnectedSessions
-			for(Session s : sessionVector) {
-				s.getBasicRemote().sendText(message);
-			}
-		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
-			close(session);
+		for(HttpSession s : sessionVector) {
+			//s.getBasicRemote().sendText(message);
 		}
 	}
 	
 	@OnClose
-	public void close(Session session) {
+	public void close(HttpSession session) {
 		System.out.println("Disconnecting!");
 		sessionVector.remove(session);
 	}

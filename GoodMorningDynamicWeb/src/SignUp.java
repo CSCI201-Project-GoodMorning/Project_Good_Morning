@@ -14,7 +14,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import java.util.regex.Matcher; 
 import java.util.regex.Pattern; 
-
+import config.*;
 /**
  * Servlet implementation class SignUp
  */
@@ -23,7 +23,7 @@ public class SignUp extends HttpServlet {
 	
 
 	private static final long serialVersionUID = 1L;
-	public static final String CREDENTIALS_STRING = "jdbc:mysql://localhost:3306/gmData?user=root&password=root";
+//	public static final String CREDENTIALS_STRING = "jdbc:mysql://localhost:3306/gmData?user=root&password=root";
 	static Connection connection = null;
        
     /**
@@ -57,6 +57,7 @@ public class SignUp extends HttpServlet {
 		String next = "/Quiz.jsp";
 
 		//error checking
+		System.out.println(name);
 		if (name.equals("")) {
 			error += "Name cannot be empty.";
 			next = "/SignUp.jsp";
@@ -95,7 +96,7 @@ public class SignUp extends HttpServlet {
 	    //check that there are no duplicate usernames
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection(CREDENTIALS_STRING);
+			connection = DriverManager.getConnection(Constants.CREDENTIALS_STRING);
 			String sql = "SELECT * FROM users WHERE username = ?;";
 			ps = (PreparedStatement) connection.prepareStatement(sql);
 			ps.setString(1, username);
@@ -118,9 +119,16 @@ public class SignUp extends HttpServlet {
 			try {
 			
 				
-				
-				String sql = "insert into users (username, fullName, registeredUser, email, passcode) values('" + username + "', '" + name + "', '" + registereduser + "', '" + email + "', '" + password + "')";
-	            ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//				todo: email preference??
+				String sql = "insert into users (username, fullName, registeredUser, email, emailPrefDaily, passcode) values('" + username + "', '" + name + "', '" + registereduser + "', '" + email + "', true, '" + password + "')";
+//	            System.out.println(sql);
+	           
+//				st = conn.createStatement();
+//				
+//				  
+//				  
+//				 rs = st.executeQuery("select ClassName,count(ID) as number from Grades group by ClassName;");
+				ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 	            ps.executeUpdate();
 	          
 	            rs = ps.getGeneratedKeys();

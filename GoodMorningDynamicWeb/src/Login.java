@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import config.*;
 /**
  * Servlet implementation class Login
  */
@@ -64,7 +64,7 @@ public class Login extends HttpServlet {
 					PreparedStatement ps = null;
 					ResultSet rs = null;
 					Class.forName("com.mysql.cj.jdbc.Driver");
-					connection = DriverManager.getConnection(CREDENTIALS_STRING);
+					connection = DriverManager.getConnection(Constants.CREDENTIALS_STRING);
 					String insert = "SELECT * FROM users WHERE username = ? AND passcode = ?;";
 					ps = (PreparedStatement) connection.prepareStatement(insert);
 					ps.setString(1, username);
@@ -98,11 +98,15 @@ public class Login extends HttpServlet {
 					e.printStackTrace();
 				} 
 		   }
-		   
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher(next);
+//			int test = (int)session.getAttribute("userid");
+//			System.out.println(test);
+			
+//			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/MoodBoardServlet.java");
+			 RequestDispatcher rd=request.getRequestDispatcher("MoodBoardServlet");  
+//		     rd.forward(request, response);  
 
 			try {
-				dispatch.forward(request, response);
+				rd.forward(request, response);
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (ServletException e) {

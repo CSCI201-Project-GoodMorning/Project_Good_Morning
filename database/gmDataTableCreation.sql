@@ -2,11 +2,12 @@ DROP DATABASE if exists gmData;
 CREATE DATABASE gmData;
 USE gmData;
 CREATE TABLE users (
-	userID int primary key not null auto_increment,
+    userID int primary key not null auto_increment,
     username varchar(16) not null,
     passcode varchar(16) not null,
     fullName varchar(28) not null,
     registeredUser bool not null,
+    emailTimePreference varchar(500),
     email varchar(50) not null,
     emailPrefDaily bool DEFAULT 0,
     prefAnimal bool DEFAULT 0,
@@ -28,13 +29,14 @@ CREATE TABLE users (
     prefTravel bool DEFAULT 0,
     prefCooking bool DEFAULT 0
 );
+
 CREATE TABLE pictures (
-	picID int primary key not null auto_increment,
+    picID int primary key not null auto_increment,
     photoURL varchar(2083),
     attribute varchar(15)
 );
 CREATE TABLE moodBoard (
-	boardID int primary key not null auto_increment,
+    boardID int primary key not null auto_increment,
     userID int not null,
     picID1 int not null,
     picID2 int not null,
@@ -54,12 +56,4 @@ CREATE TABLE moodBoard (
     FOREIGN KEY fk7(picID7) REFERENCES pictures(picID),
     FOREIGN KEY fk8(picID8) REFERENCES pictures(picID),
     FOREIGN KEY fk9(picID9) REFERENCES pictures(picID)
-);
-CREATE TABLE emails (
-	emailID int primary key not null auto_increment,
-    userID int,
-    goodMorningMessage varchar(500) not null,
-    emailTimePreference varchar(500) not null,
-    photoURL varchar(2083) not null,
-    FOREIGN KEY fk1(userID) REFERENCES users(userID)
 );

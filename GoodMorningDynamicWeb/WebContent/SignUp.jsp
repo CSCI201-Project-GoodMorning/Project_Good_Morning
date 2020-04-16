@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
 <html>
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -19,16 +19,16 @@
     </style>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-orange">
-            <a class="navbar-brand title" href="./about.html" >CSCI-201 Project: Good Morning</a>
+            <a class="navbar-brand title" href="./About.jsp" >CSCI-201 Project: Good Morning</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav title">
-                        <a class="nav-item nav-link" href="./about.html">About us<span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="./moodboard.html">Moodboard</a>
-                        <a class="nav-item nav-link" href="./login.html">Login</a>
-                        <a class="nav-item nav-link active" href="./signup.html">Signup</a>
+                        <a class="nav-item nav-link" href="./About.jsp">About us<span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link" href="./MoodBoard.jsp">Moodboard</a>
+                        <a class="nav-item nav-link" href="./Login.jsp">Login</a>
+                        <a class="nav-item nav-link active" href="./SignUp.jsp">Signup</a>
                         
                         
                 </div>

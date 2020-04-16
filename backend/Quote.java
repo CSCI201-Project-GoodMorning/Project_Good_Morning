@@ -6,18 +6,41 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Vector;
+import java.util.List;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.jasper.tagplugins.jstl.core.Url;
 
 import com.google.gson.Gson;
-//pass a random # 
-
-//# of threads should equal the # of users
 
 public class Quote extends Thread {
 	
 	private static String content;
+	
+	//list of 5 quotes to be accessed by the front end user
+	private static List<String> q_list;
+	
+	//HTTP session from which we set the 5 quotes as individual attributes
+	private HttpSession session;
 
+	public HttpSession getSession() {
+		return session;
+	}
+
+	public void setSession(HttpSession session) {
+		this.session = session;
+	}
+
+	public static List<String> getQ_list() {
+		return q_list;
+	}
+
+	public void setQ_list(List<String> q_list2) {
+		this.q_list = q_list2;
+	}
+	
 	public static String getContent() {
 		return content;
 	}
@@ -26,12 +49,27 @@ public class Quote extends Thread {
 		Quote.content = content;
 	}
 
-	public Quote(String cont) {
-		this.content = cont;
+	//as soon as the quote object is instantiated
+	//before the thread begins running, the api is called and its quote list is set
+	//attribute is NOT set until the thread begins running
+	public Quote(HttpSession s) throws IOException {
+		List<String> list_of_quotes = null;
+		Quote q=null;
+		String content ="";
+		for(int i=0;i<5;i++) {
+			//get a random quote string returned by the call API function
+			content = q.call_API();
+			//add that quote to the list of 5 quotes private variable
+			list_of_quotes.add(content);
+		}
+		this.setQ_list(list_of_quotes);
+		//set this sesson = to the session you pass in the thread constructor
+		this.session = s;
 		this.start();
 	}
 	
-	public static void main(String[] args) throws IOException {
+	public static String call_API() throws IOException {
+		
 		String url_API = "https://api.quotable.io/random";
 		URL url = null;
 		
@@ -56,43 +94,61 @@ public class Quote extends Thread {
 					} 
 
 			String json_result = response.toString();
-			//System.out.println(json_result);
 			
 			RandomQuote rq = null;
 			Gson gson = new Gson();
 			rq = gson.fromJson(json_result, RandomQuote.class);
 			content = rq.getContent();
-			Quote q = new Quote(content);
+			return content;
 			
 			}
 		else {
 			System.out.println("Connection of API is not OK");
+			return "Error with Quotes";
 		}
-		
-		//needs to be as many "threads" in the pool as there are, profiles
-		
-		//where to create the new cached thread pool
+
+	}
+	
+	public static void main(String[] args) throws IOException {
+
 		
 	}
 	
 	public void run() {
-	
-		while(true) {
-			while(Util.getCurrentTime() == "08:00:00") {
-				System.out.println(Quote.getContent());
-				try {
-					//sleep for a day
-					Thread.sleep(86400000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+
+		while (true) {
+			//get a new set of 5 quotes every 2 minutes
+
+			this.session.setAttribute("quote1",this.q_list.get(0));
+			this.session.setAttribute("quote2",this.q_list.get(1));
+			this.session.setAttribute("quote3",this.q_list.get(2));
+			this.session.setAttribute("quote4",this.q_list.get(3));
+			this.session.setAttribute("quote5",this.q_list.get(4));
+			
+			//sleep for 2 minutes
+			try {
+				Thread.sleep(120000);
+				List<String> list_of_quotes = null;
+				Quote q=null;
+				String content ="";
+				for(int i=0;i<5;i++) {
+					//get a new quote string with every API call
+					content = q.call_API();
+					//add that quote to your list of quotes
+					list_of_quotes.add(content);
 				}
+				this.setQ_list(list_of_quotes);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		}
+			
+		}	
 
 		
-		//need to be able to send this quote to the front end
 	}
+
 	
 }
 
