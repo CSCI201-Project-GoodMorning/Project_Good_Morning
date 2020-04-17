@@ -1,5 +1,6 @@
-package mail;
+package Mail;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,7 +13,7 @@ import java.util.Collections;
 public class getContentDaily {
 	
 	//gets a randomized preference for user each day
-	private static String getPreference(ResultSet rs) throws SQLException {
+	static String getPreference(ResultSet rs) throws SQLException {
 		ArrayList<String> preferences = new ArrayList<String>();
 		String preference = null;
 		
@@ -72,7 +73,7 @@ public class getContentDaily {
 	}
 	
 	//gets a photo based on pref of the day
-	private static String getPhoto(String preference) throws SQLException {
+	static String getPhoto(String preference) throws SQLException {
 		ArrayList<String> picURLS = new ArrayList<String>();
 		String finalurl = null;
 		Connection connection = null;
@@ -100,7 +101,7 @@ public class getContentDaily {
 	}
 	
 	//gets content for each user who has selected to recieve emails
-	public static ArrayList<EmailContents> getEmailContent() throws SQLException{
+	public static ArrayList<EmailContents> getEmailContent() throws SQLException, IOException{
 		 Connection conn = null;
 		 Statement st = null;
 		 ResultSet rs = null;
@@ -131,7 +132,9 @@ public class getContentDaily {
 				  email.setPhotURL(photoURL);
 				  
 				  //need to use quotes api to get quote based on preference
-				  
+				  Quote q=null;
+				  String content = q.call_API();
+				  email.setQuote(content);
 				  
 				  //add to email list
 				  emails.add(email);

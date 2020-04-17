@@ -1,4 +1,4 @@
-package mail;
+package Mail;
 
 import java.io.IOException;
 import java.util.*; 
@@ -35,7 +35,7 @@ public class SendEmail
 		return null;
 	} 
 	
-   public static void SendEmail(EmailContents toSend) throws MessagingException, IOException  
+   public static void SendTheEmail(EmailContents toSend) throws MessagingException, IOException  
    {     
   
       // email ID of goodmorning. 
