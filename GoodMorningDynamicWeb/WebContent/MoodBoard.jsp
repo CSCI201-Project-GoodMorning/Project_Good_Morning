@@ -24,7 +24,7 @@
 
 	ArrayList<String> picURLs = (ArrayList<String>)session.getAttribute("sixPicURLs");
 	ArrayList<String> interests_for_api	= (ArrayList<String>)session.getAttribute("interests");
-	
+	String name = (String)session.getAttribute("name");
 	boolean login = false;
 	if (session.getAttribute("userid")!=null) login = true;
 %>
@@ -67,14 +67,10 @@
         </div>
 
 <!-- test -->
-<!-- 
-<form name="chatform" onsubmit="return sendMessage();">
-			<input type="text" name="message" value="Type Here!" /><br />
-			<input type="submit" name="submit" value="Send Message" />
-		</form>
-		<br />
-		<div id="mychat"></div> -->
+<%if (login){ %>
+		<textarea id="mychat" placeholder="send your wishes to people here"></textarea> 
 		
+<%}%>
         <div class="container">
         	
             <div class="row">
@@ -189,8 +185,9 @@
 				/* document.getElementById("mychat").innerHTML += "Disconnected!"; */
 			}
 		}
-		function sendMessage() {
+		function sendMessage(message) {
 			/* socket.send("Miller: " + document.chatform.message.value); */
+			socket.send("<%=name%>"+": " + message);
 			return false;
 		}
 		function randomPopup(text){
@@ -233,6 +230,22 @@
 				popups[i].remove();
           }
 		}
+		var chat = document.getElementById("mychat");
+		var heightLimit = 200; /* Maximum height: 200px */
+		chat.addEventListener("keyup", function(event) {
+			  
+			  if (event.keyCode === 13) {
+			  		sendMessage(chat.value);
+			  		chat.value = "";
+			  		
+			  		console.log("here");
+			  }
+		});
+		chat.oninput = function() {
+			  chat.style.height = ""; /* Reset the height*/
+			  chat.style.height = Math.min(chat.scrollHeight, heightLimit) + "px";
+		};
+
 
 		
 	    <%}%>

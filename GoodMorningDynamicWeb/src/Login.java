@@ -70,12 +70,14 @@ public class Login extends HttpServlet {
 					ps.setString(1, username);
 					ps.setString(2, password);
 					rs = ps.executeQuery();
+					String name = "";
 					Boolean foundMatch = false;
 					while (rs.next() && !foundMatch) {
 						String uname = rs.getString("username");
 						String pword = rs.getString("passcode");
 						if (uname.equals(username) && pword.equals(password)) {
 							id = rs.getInt("userID");
+							name = rs.getString("fullName");
 							foundMatch = true;
 						}
 					}
@@ -86,6 +88,7 @@ public class Login extends HttpServlet {
 						System.out.println("no username");
 					}
 					else{
+						session.setAttribute("name",name);
 						session.setAttribute("username", username);
 						session.setAttribute("password", password);
 						session.setAttribute("userid", id);
@@ -101,8 +104,8 @@ public class Login extends HttpServlet {
 //			int test = (int)session.getAttribute("userid");
 //			System.out.println(test);
 			
-//			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/MoodBoardServlet.java");
 			 RequestDispatcher rd=request.getRequestDispatcher("MoodBoardServlet");  
+//			RequestDispatcher dispatch = getServletContext().getRequestDispatcher(next);
 //		     rd.forward(request, response);  
 
 			try {

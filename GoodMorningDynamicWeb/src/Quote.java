@@ -121,9 +121,8 @@ public class Quote extends Thread {
 //			print quote
 			try {
 				call_API();
-				System.out.println(content);
+
 				session.getBasicRemote().sendText(content);
-				System.out.println("here end");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

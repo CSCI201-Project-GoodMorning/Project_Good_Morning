@@ -30,6 +30,10 @@ public class ServerSocket {
 		
 		Quote q = new Quote(session);
 		q.start();
+//		for(Session s : sessionVector) {
+//			if (s != session) s.getBasicRemote().sendText("someone joins in ~");
+//		}
+		
 //
 //		sessionVector.add(session);
 //
@@ -40,10 +44,10 @@ public class ServerSocket {
 	}
 	
 	@OnMessage
-	public void onMessage(String message, Session session) {
+	public void onMessage(String message, Session session) throws IOException {
 		System.out.println(message);
 		for(Session s : sessionVector) {
-			//s.getBasicRemote().sendText(message);
+			s.getBasicRemote().sendText(message);
 		}
 	}
 	
