@@ -1,0 +1,2 @@
+USE gmdata;
+INSERT INTO users (userID, username, passcode, fullname, registeredUser, email, emailPrefDaily, prefAnimal, prefFood, prefSky, prefWater, prefArchitecture, prefFlower, prefMuseum, prefArt, prefMountains, prefSoccer, prefDance, prefSinging, prefPolitics, prefLiterature, prefFashion, prefVolunteer, prefTravel, prefCooking) VALUES (5, 'jake', 'pword', 'jake boi', true, 'hcikanek@yahoo.com', true, true, true, true, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false)
