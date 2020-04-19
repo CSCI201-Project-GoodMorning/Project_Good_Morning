@@ -1,5 +1,3 @@
-package Mail;
-
 import javax.mail.MessagingException;
 
 import java.io.IOException;

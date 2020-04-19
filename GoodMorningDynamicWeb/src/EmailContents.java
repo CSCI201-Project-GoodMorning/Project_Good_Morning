@@ -1,5 +1,3 @@
-package Mail;
-
 public class EmailContents {
 	public String name;
 	public String emailAddress;
