@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Mail.getContentDaily;
+//import Mail.getContentDaily;
 
 
 public class Mail {

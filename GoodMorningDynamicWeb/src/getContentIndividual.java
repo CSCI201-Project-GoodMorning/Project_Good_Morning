@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Mail.getContentDaily;
+import config.Constants;
+
+//import Mail.getContentDaily;
 
 
 public class getContentIndividual {
@@ -20,7 +22,7 @@ public class getContentIndividual {
 		
 		  try {
 			  
-			  conn = DriverManager.getConnection("jdbc:mysql://localhost/gmData?user=root&password=root&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC");
+			  conn = DriverManager.getConnection(Constants.CREDENTIALS_STRING);
 			  st = conn.createStatement();
 			  //get all users who wish to be emailed daily
 			  rs = st.executeQuery("SELECT * FROM USERS WHERE userID='" + userid + "'");

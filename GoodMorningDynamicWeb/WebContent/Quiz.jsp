@@ -99,7 +99,7 @@
                           <input type="checkbox" name = "interests" value="dance" > Dance
                         </label>
                         <label class="col-3 addMargin btn btnstyle checkboxes">
-                          <input type="checkbox" name = "interests" value="art"> Art
+                          <input type="checkbox" name = "interests" value="fashion"> Fashion
                         </label>
                         <label class="col-3 addMargin btn btnstyle checkboxes">
                           <input type="checkbox" name = "interests" value="traveling" > Traveling
@@ -156,7 +156,7 @@
                               <input type="checkbox" name="joy" value="architecture"> Architecture
                             </label>
                             <label class="col-3 addMargin btn btnstyle checkboxes">
-                              <input type="checkbox" name="joy" value="fashion"> Fashion
+                              <input type="checkbox" name="joy" value="art"> Art
                             </label>
                           </div>
                           <div class="row btn-group-toggle addMarginTB" data-toggle="buttons">

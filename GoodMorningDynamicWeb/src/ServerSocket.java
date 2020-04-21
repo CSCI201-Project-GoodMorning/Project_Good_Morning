@@ -22,18 +22,29 @@ public class ServerSocket {
 	@OnOpen
 	public void open(Session session) throws IOException {
 		System.out.println("Connection made!");
-		sessionVector.add(session);	
+		if (!sessionVector.contains(session))
+			sessionVector.add(session);	
 		//create instance of a quote for every instance of a web socket (ie a user)
 		//pass session into quote constructor
 		//call API in the constructor of the quote to get the list of 5 quotes
 		
-		
+		for(Session s : sessionVector) {
+			s.getBasicRemote().sendText("someone joins in ~");
+		}
 		Quote q = new Quote(session);
 		q.start();
-//		for(Session s : sessionVector) {
-//			if (s != session) s.getBasicRemote().sendText("someone joins in ~");
-//		}
-		
+		while (true) {
+			
+			try {
+				System.out.println(sessionVector.size());
+				session.getBasicRemote().sendText("There are currently "+sessionVector.size()+" active users");
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 //
 //		sessionVector.add(session);
 //

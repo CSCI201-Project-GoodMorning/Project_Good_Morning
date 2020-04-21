@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import config.Constants;
+
 
 public class getContentDaily {
 	
@@ -79,7 +81,7 @@ public class getContentDaily {
 		ResultSet rset= null;
 		
 		//establish second connection
-		connection = DriverManager.getConnection("jdbc:mysql://localhost/gmData?user=root&password=root&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC");
+		connection = DriverManager.getConnection(Constants.CREDENTIALS_STRING);
 		statement = connection.createStatement();
 		rset = statement.executeQuery("SELECT photoURL FROM PICTURES WHERE attribute='" + preference + "'");
 		
@@ -107,7 +109,7 @@ public class getContentDaily {
 		 
 		  try {
 			  
-			  conn = DriverManager.getConnection("jdbc:mysql://localhost/gmData?user=root&password=root&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC");
+			  conn = DriverManager.getConnection(Constants.CREDENTIALS_STRING);
 			  st = conn.createStatement();
 			  //get all users who wish to be emailed daily
 			  rs = st.executeQuery("SELECT * FROM USERS WHERE emailPrefDaily='" + 1 + "'");

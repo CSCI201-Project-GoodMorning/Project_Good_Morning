@@ -156,6 +156,7 @@
 	        } 
 	        // --> 
 	    </script>
+	    <%} %>
     </body>
     <script>
     	<%if (login){%>

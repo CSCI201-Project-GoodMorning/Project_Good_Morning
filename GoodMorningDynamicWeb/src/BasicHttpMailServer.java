@@ -3,11 +3,11 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
 import javax.mail.MessagingException;
-import javax.xml.ws.spi.http.HttpContext;
+//import javax.xml.ws.spi.http.HttpContext;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
-import Mail.getContentIndividual;
+//import Mail.getContentIndividual;
 
 public class BasicHttpMailServer {
 
