@@ -22,8 +22,6 @@ public class ServerSocket {
 	@OnOpen
 	public void open(Session session) throws IOException {
 		System.out.println("Connection made!");
-		if (!sessionVector.contains(session))
-			sessionVector.add(session);	
 		//create instance of a quote for every instance of a web socket (ie a user)
 		//pass session into quote constructor
 		//call API in the constructor of the quote to get the list of 5 quotes
