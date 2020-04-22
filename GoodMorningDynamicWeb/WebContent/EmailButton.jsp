@@ -5,7 +5,8 @@
 	<title>Email Button Test</title>
 	</head>
 	<body>
-	    <form name="form1" method="GET" ACTION="http://127.0.0.1:8500/">
+<!-- 	http://127.0.0.1:8500/ -->
+	    <form name="form1" method="GET" ACTION="Email">
 	        <button class="btn btn-info center set-width-30" onclick="emailButton()">Send a personalized Good Morning email</button>
 	    </form>
 	

@@ -30,5 +30,6 @@ public class BasicHttpMailServer {
 //		  com.sun.net.httpserver.HttpContext context = exchange.getHttpContext();
 	      EmailContents email = getContentIndividual.getContent(5);
 	      SendEmail.SendTheEmail(email);
+	      
 	  }
 	}

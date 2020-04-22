@@ -144,17 +144,26 @@
     
         <%if (session.getAttribute("userid")== null) {%><a href="SignUp.jsp" class="btn btn-info center set-width-30" role="button">Sign up as a member now</a>
         <%}else{ %>
-         <form name="form1" method="GET" ACTION="http://127.0.0.1:8500/">
+       
 	        <button class="btn btn-info center set-width-30" onclick="emailButton()">Send a personalized Good Morning email</button>
-	    </form>
-        <script language="JavaScript">
-	        <!--
+
+        <script>
 	        function emailButton()
 	        {
-	            document.form1.buttonName.value = "yes";
-	            form1.submit();
+	   
+		    	$.ajax({
+		    		method:"GET",
+           			url: "Email",
+           			data: {
+             			id: <%=(Integer)session.getAttribute("userid")%>
+           			},
+           			success: function( result ) {
+             			console.log("success")
+           			}
+         		});
+          		return false;
 	        } 
-	        // --> 
+	        
 	    </script>
 	    <%} %>
     </body>
