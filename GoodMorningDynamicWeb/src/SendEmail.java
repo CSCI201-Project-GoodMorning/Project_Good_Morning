@@ -21,24 +21,25 @@ public class SendEmail
 			message.setSubject("Good Morning! :) ");
 			
 			//Pull Html Template and add Quote as body
-			File emailTemplate = new File("EmailTemplate.html");
-			StringBuilder contentBuilder = new StringBuilder();
-		    try (BufferedReader br = new BufferedReader(new FileReader("EmailTemplate.html"))) 
-		    {
-		 
-		        String sCurrentLine;
-		        while ((sCurrentLine = br.readLine()) != null) 
-		        {
-		            contentBuilder.append(sCurrentLine).append("\n");
-		        }
-		    } 
-		    catch (IOException e) 
-		    {
-		        e.printStackTrace();
-		    }
-			String htmlString = contentBuilder.toString();
-			htmlString = htmlString.replace("$body", toSend.getQuote());
-			message.setContent(htmlString, "text/html; charset=utf-8");
+//			StringBuilder contentBuilder = new StringBuilder();
+//		    try (BufferedReader br = new BufferedReader(new FileReader("template.html"))) 
+//		    {
+//		 
+//		        String sCurrentLine;
+//		        while ((sCurrentLine = br.readLine()) != null) 
+//		        {
+//		            contentBuilder.append(sCurrentLine).append("\n");
+//		        }s
+//		    } 
+//		    catch (IOException e) 
+//		    {
+//		        e.printStackTrace();
+//		    }
+//			String htmlString = contentBuilder.toString();
+//			htmlString = htmlString.replace("$body", toSend.getQuote());
+//			message.setContent(htmlString, "text/html; charset=utf-8");
+			
+			message.setContent("<h1>" + "<em>" + toSend.getQuote()+ "</em>" + "</h1>", "text/html");
 
 			return message;
 			

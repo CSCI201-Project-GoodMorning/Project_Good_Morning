@@ -31,15 +31,15 @@ public class Email extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id =  request.getParameter("id");
 		Integer num = Integer.parseInt(id);
-//		EmailContents email = getContentIndividual.getContent(num);
-//	    try {
-//			SendEmail.SendTheEmail(email);
-//		} catch (MessagingException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
+		int userid = (int) num;
+		EmailContents email = getContentIndividual.getContent(userid);
+	    try {
+			SendEmail.SendTheEmail(email);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
