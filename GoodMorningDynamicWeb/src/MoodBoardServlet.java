@@ -40,6 +40,9 @@ public class MoodBoardServlet extends HttpServlet {
 			session.setAttribute("sixPicURLs", picURLs);
 			session.setAttribute("interests", interests_for_api);
 		}
+		//just need to replace the 5 in there with the current session's user's id
+//		mailContents email = getContentIndividual.getContent(5);
+//		SendEmail.SendTheEmail(email);
 		RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/MoodBoard.jsp");
 		try {
 			dispatch.forward(request, response);

@@ -4,6 +4,7 @@ import java.net.InetSocketAddress;
 
 import javax.mail.MessagingException;
 //import javax.xml.ws.spi.http.HttpContext;
+import javax.servlet.http.HttpSession;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
@@ -26,9 +27,7 @@ public class BasicHttpMailServer {
 	  }
 
 	  private static void handleRequest(HttpExchange exchange) throws IOException, MessagingException {
-		  com.sun.net.httpserver.HttpContext asdf = exchange.getHttpContext();
-		  asdf.getAttributes();
-	      
+//		  com.sun.net.httpserver.HttpContext context = exchange.getHttpContext();
 	      EmailContents email = getContentIndividual.getContent(5);
 	      SendEmail.SendTheEmail(email);
 	  }
